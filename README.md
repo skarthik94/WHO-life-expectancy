@@ -64,3 +64,53 @@ BMI – This stands for Body Mass Index. It is a generalised method of determini
 Human Development Index – According to the United Nations Development Programme, “The Human Development Index (HDI) is a summary measure of average achievement in key dimensions of human development: a long and healthy life, being knowledgeable and have a decent standard of living.”
 
 Thinness – Thinness is when one is underweight, it is generally indicated by a BMI less than 19 but this varies at different age groups.
+
+Linear Model
+The linear model was run using all the variables that could be used, 16 in number. The MSE is 16.67 with a R2 of 0.835. Due to the simplicity of this model, it is unlikely to be the best way to go about this problem. A MSE of 16.67 is not acceptable as the range of average life expectancy is (36.3,89.0).
+
+Coefficients:
+                                  Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                      5.319e+01  7.374e-01  72.130  < 2e-16 ***
+StatusDeveloping                -1.250e+00  3.130e-01  -3.993 6.75e-05 ***
+Adult.Mortality                 -1.532e-02  9.000e-04 -17.025  < 2e-16 ***
+infant.deaths                    8.531e-02  8.625e-03   9.891  < 2e-16 ***
+Alcohol                         -3.259e-02  2.954e-02  -1.103    0.270    
+percentage.expenditure           3.063e-04  4.764e-05   6.429 1.60e-10 ***
+Measles                         -7.271e-06  8.649e-06  -0.841    0.401    
+BMI                              3.485e-02  5.810e-03   5.998 2.37e-09 ***
+under.five.deaths               -6.363e-02  6.376e-03  -9.979  < 2e-16 ***
+Polio                            2.289e-02  5.095e-03   4.491 7.47e-06 ***
+Total.expenditure                3.780e-02  3.899e-02   0.969    0.332    
+Diphtheria                       2.153e-02  5.151e-03   4.180 3.04e-05 ***
+HIV.AIDS                        -4.851e-01  1.821e-02 -26.645  < 2e-16 ***
+thinness..1.19.years            -5.262e-02  5.385e-02  -0.977    0.329    
+thinness.5.9.years               2.062e-02  5.326e-02   0.387    0.699    
+Income.composition.of.resources  7.075e+00  6.971e-01  10.149  < 2e-16 ***
+Schooling                        9.164e-01  4.984e-02  18.385  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 3.809 on 2027 degrees of freedom
+Multiple R-squared:  0.8361,	Adjusted R-squared:  0.8348 
+F-statistic: 646.1 on 16 and 2027 DF,  p-value: < 2.2e-16
+
+
+Polynomial Model
+The polynomial model was run using all the variables as well as the same variables with degrees up to 3. The MSE is 9.32 with a R2 of 0.90 which is an improvement from the linear model but this is not acceptable as well given the range of average life expectancy. As the number of variable is much greater than the linear model, I haven’t included the coefficients for each variable.
+
+Residual standard error: 2.961 on 1997 degrees of freedom
+Multiple R-squared:  0.9024,	Adjusted R-squared:  0.9002 
+F-statistic: 401.5 on 46 and 1997 DF,  p-value: < 2.2e-16
+
+
+Random Forest Model
+The random forest model was run using all the variables. The default parameters given by R were used. The MSE is 3.03 with an R2 of 0.966. This is obviously the best model amongst all the models and the MSE is more acceptable, however we can do better. This model can be improved by tuning the model parameters. Dimensionality reduction can also be used as it can be seen that not all the variables are significant. I would also use K-fold cross validation to further tune the model and reduce the MSE.
+
+Call:
+ randomForest(formula = Life.expectancy ~ Status + Adult.Mortality +      infant.deaths + Alcohol + percentage.expenditure + Measles +      BMI + under.five.deaths + Polio + Total.expenditure + Diphtheria +      HIV.AIDS + thinness..1.19.years + thinness.5.9.years + Income.composition.of.resources +      Schooling, data = who_data) 
+               Type of random forest: regression
+                     Number of trees: 500
+No. of variables tried at each split: 5
+
+          Mean of squared residuals: 3.030365
+                    % Var explained: 96.57
